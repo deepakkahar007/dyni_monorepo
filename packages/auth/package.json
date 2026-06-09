@@ -1,0 +1,25 @@
+{
+	"name": "@repo/auth",
+	"module": "src/index.ts",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"auth:schema": "bunx auth@latest generate --config ./src/server.ts --output ./src/auth-schema.ts"
+	},
+	"exports": {
+		"./client": "./src/client.ts",
+		"./server": "./src/server.ts",
+		"./session": "./src/session.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@repo/env": "workspace:*",
+		"@repo/drizzle": "workspace:*",
+		"better-auth": "^1.6.12"
+	}
+}
