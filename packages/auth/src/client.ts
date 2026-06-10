@@ -7,6 +7,12 @@ export const clientAuth = createAuthClient({
 	plugins: [organizationClient()],
 });
 
+
+export const getClientSession = () => {
+	const session = clientAuth.useSession();
+	return session;
+}
+
 export const signInWithGoogle = async () => {
 	const res = await clientAuth.signIn.social({
 		provider: "google",
@@ -31,7 +37,7 @@ export const signUpWithEmailPassword = async (name: string, email: string, passw
 	return res;
 };
 
-export const signOut = async () => {
-	const res = await clientAuth.signOut();
+export const signOut = () => {
+	const res = clientAuth.signOut();
 	return res;
 };

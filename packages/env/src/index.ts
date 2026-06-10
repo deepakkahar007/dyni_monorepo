@@ -11,7 +11,7 @@ if (typeof process !== "undefined" && process.versions?.node) {
 
 export const clientEnv = createEnv({
 	client: {
-		NEXT_PUBLIC_API_URL: z.url().default("http://localhost:3001"),
+		NEXT_PUBLIC_API_URL: z.url().default("http://localhost:3000/api/auth"),
 	},
 	clientPrefix: "NEXT_PUBLIC_",
 	emptyStringAsUndefined: true,
@@ -36,7 +36,7 @@ export const serverEnv = createEnv({
 			const { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER, ...rest } = obj;
 			return {
 				...rest,
-				BETTER_AUTH_URL: `http://localhost:3000`,
+				BETTER_AUTH_URL: `http://localhost:3000/api/auth`,
 				DATABASE_URL: `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
 			};
 		}),

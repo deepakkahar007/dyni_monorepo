@@ -18,8 +18,9 @@
 		"typescript": "^5"
 	},
 	"dependencies": {
-		"@repo/env": "workspace:*",
+		"@better-auth/kysely-adapter": "^1.6.15",
 		"@repo/drizzle": "workspace:*",
-		"better-auth": "^1.6.12"
+		"@repo/env": "workspace:*",
+		"better-auth": "^1.6.15"
 	}
 }
