@@ -13,8 +13,9 @@ import { Route as PUBLICRouteRouteImport } from './routes/(PUBLIC)/route'
 import { Route as DASHBOARDRouteRouteImport } from './routes/(DASHBOARD)/route'
 import { Route as AUTHRouteRouteImport } from './routes/(AUTH)/route'
 import { Route as PUBLICIndexRouteImport } from './routes/(PUBLIC)/index'
-import { Route as DASHBOARDDashboardOrganizationRouteImport } from './routes/(DASHBOARD)/dashboard/organization'
+import { Route as DASHBOARDDashboardOrganizationsRouteImport } from './routes/(DASHBOARD)/dashboard/organizations'
 import { Route as AUTHAuthSignInRouteImport } from './routes/(AUTH)/auth/sign-in'
+import { Route as DASHBOARDDashboardOrgOrgIdRouteImport } from './routes/(DASHBOARD)/dashboard/org/$orgId'
 
 const PUBLICRouteRoute = PUBLICRouteRouteImport.update({
   id: '/(PUBLIC)',
@@ -33,10 +34,10 @@ const PUBLICIndexRoute = PUBLICIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PUBLICRouteRoute,
 } as any)
-const DASHBOARDDashboardOrganizationRoute =
-  DASHBOARDDashboardOrganizationRouteImport.update({
-    id: '/dashboard/organization',
-    path: '/dashboard/organization',
+const DASHBOARDDashboardOrganizationsRoute =
+  DASHBOARDDashboardOrganizationsRouteImport.update({
+    id: '/dashboard/organizations',
+    path: '/dashboard/organizations',
     getParentRoute: () => DASHBOARDRouteRoute,
   } as any)
 const AUTHAuthSignInRoute = AUTHAuthSignInRouteImport.update({
@@ -44,16 +45,24 @@ const AUTHAuthSignInRoute = AUTHAuthSignInRouteImport.update({
   path: '/auth/sign-in',
   getParentRoute: () => AUTHRouteRoute,
 } as any)
+const DASHBOARDDashboardOrgOrgIdRoute =
+  DASHBOARDDashboardOrgOrgIdRouteImport.update({
+    id: '/dashboard/org/$orgId',
+    path: '/dashboard/org/$orgId',
+    getParentRoute: () => DASHBOARDRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PUBLICIndexRoute
   '/auth/sign-in': typeof AUTHAuthSignInRoute
-  '/dashboard/organization': typeof DASHBOARDDashboardOrganizationRoute
+  '/dashboard/organizations': typeof DASHBOARDDashboardOrganizationsRoute
+  '/dashboard/org/$orgId': typeof DASHBOARDDashboardOrgOrgIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PUBLICIndexRoute
   '/auth/sign-in': typeof AUTHAuthSignInRoute
-  '/dashboard/organization': typeof DASHBOARDDashboardOrganizationRoute
+  '/dashboard/organizations': typeof DASHBOARDDashboardOrganizationsRoute
+  '/dashboard/org/$orgId': typeof DASHBOARDDashboardOrgOrgIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +71,22 @@ export interface FileRoutesById {
   '/(PUBLIC)': typeof PUBLICRouteRouteWithChildren
   '/(PUBLIC)/': typeof PUBLICIndexRoute
   '/(AUTH)/auth/sign-in': typeof AUTHAuthSignInRoute
-  '/(DASHBOARD)/dashboard/organization': typeof DASHBOARDDashboardOrganizationRoute
+  '/(DASHBOARD)/dashboard/organizations': typeof DASHBOARDDashboardOrganizationsRoute
+  '/(DASHBOARD)/dashboard/org/$orgId': typeof DASHBOARDDashboardOrgOrgIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth/sign-in' | '/dashboard/organization'
+  fullPaths:
+    | '/'
+    | '/auth/sign-in'
+    | '/dashboard/organizations'
+    | '/dashboard/org/$orgId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth/sign-in' | '/dashboard/organization'
+  to:
+    | '/'
+    | '/auth/sign-in'
+    | '/dashboard/organizations'
+    | '/dashboard/org/$orgId'
   id:
     | '__root__'
     | '/(AUTH)'
@@ -76,7 +94,8 @@ export interface FileRouteTypes {
     | '/(PUBLIC)'
     | '/(PUBLIC)/'
     | '/(AUTH)/auth/sign-in'
-    | '/(DASHBOARD)/dashboard/organization'
+    | '/(DASHBOARD)/dashboard/organizations'
+    | '/(DASHBOARD)/dashboard/org/$orgId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -115,11 +134,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PUBLICIndexRouteImport
       parentRoute: typeof PUBLICRouteRoute
     }
-    '/(DASHBOARD)/dashboard/organization': {
-      id: '/(DASHBOARD)/dashboard/organization'
-      path: '/dashboard/organization'
-      fullPath: '/dashboard/organization'
-      preLoaderRoute: typeof DASHBOARDDashboardOrganizationRouteImport
+    '/(DASHBOARD)/dashboard/organizations': {
+      id: '/(DASHBOARD)/dashboard/organizations'
+      path: '/dashboard/organizations'
+      fullPath: '/dashboard/organizations'
+      preLoaderRoute: typeof DASHBOARDDashboardOrganizationsRouteImport
       parentRoute: typeof DASHBOARDRouteRoute
     }
     '/(AUTH)/auth/sign-in': {
@@ -128,6 +147,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/sign-in'
       preLoaderRoute: typeof AUTHAuthSignInRouteImport
       parentRoute: typeof AUTHRouteRoute
+    }
+    '/(DASHBOARD)/dashboard/org/$orgId': {
+      id: '/(DASHBOARD)/dashboard/org/$orgId'
+      path: '/dashboard/org/$orgId'
+      fullPath: '/dashboard/org/$orgId'
+      preLoaderRoute: typeof DASHBOARDDashboardOrgOrgIdRouteImport
+      parentRoute: typeof DASHBOARDRouteRoute
     }
   }
 }
@@ -145,11 +171,13 @@ const AUTHRouteRouteWithChildren = AUTHRouteRoute._addFileChildren(
 )
 
 interface DASHBOARDRouteRouteChildren {
-  DASHBOARDDashboardOrganizationRoute: typeof DASHBOARDDashboardOrganizationRoute
+  DASHBOARDDashboardOrganizationsRoute: typeof DASHBOARDDashboardOrganizationsRoute
+  DASHBOARDDashboardOrgOrgIdRoute: typeof DASHBOARDDashboardOrgOrgIdRoute
 }
 
 const DASHBOARDRouteRouteChildren: DASHBOARDRouteRouteChildren = {
-  DASHBOARDDashboardOrganizationRoute: DASHBOARDDashboardOrganizationRoute,
+  DASHBOARDDashboardOrganizationsRoute: DASHBOARDDashboardOrganizationsRoute,
+  DASHBOARDDashboardOrgOrgIdRoute: DASHBOARDDashboardOrgOrgIdRoute,
 }
 
 const DASHBOARDRouteRouteWithChildren = DASHBOARDRouteRoute._addFileChildren(
