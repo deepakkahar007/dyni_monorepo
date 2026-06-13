@@ -1,17 +1,14 @@
 import { clientEnv } from "@repo/env";
-import { organizationClient } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 
 export const clientAuth = createAuthClient({
 	baseURL: clientEnv.NEXT_PUBLIC_API_URL,
-	plugins: [organizationClient()],
 });
-
 
 export const getClientSession = () => {
 	const session = clientAuth.useSession();
 	return session;
-}
+};
 
 export const signInWithGoogle = async () => {
 	const res = await clientAuth.signIn.social({
